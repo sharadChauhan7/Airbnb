@@ -1,0 +1,69 @@
+<% layout('layouts/boilerplate.ejs') %>
+<body>
+    <%-include('../includes/navbar.ejs')%>
+
+   <div class="row offset-3 mt-4">
+        <div class="col-8">
+            <div class="row">
+
+                <div>
+                    <h3>
+                        <%=listData.title%>
+                    </h3>
+                </div>
+                <div>
+                    <p><b><i class="fa-solid fa-location-dot"></i> </b><%=listData.location%>, <%=listData.country%></p>
+                </div>
+                <div> 
+                    <img class="show-image mb-3" src="<%=listData.image%>" alt="">
+                </div>
+                <div class="col-6 mb-5">
+                    <h5>Description</h5>
+                    <%=listData.description%>
+                </div>
+                <div class="col-6 mb-5">
+                    <div class="mail">
+                        <div class="box row">
+                            <h5>Price: &#8377 <%=listData.price%> / per night</h5>
+                            <p>
+                                To get best experience of life book now.
+                            </p>
+                            <div class="mb-3 col-12">
+                                <label for="location" class="form-label"><h6 class="mb-0">Number of Guest: </h6><p class="extra-info"></label>
+                                <input type="text" name="location" class="form-control"   placeholder=" No. of guests" id="location" required> 
+                            </div>
+                             <button type="button" class="btn-main"> Book this place</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 mb-5">
+                    <a href="/listings/<%=listData.id%>/edit" class="edit-btn btn">Edit</a>
+                </div>
+                <div class="col-6 mb-5">
+                    <form method="post" action="/listings/<%=listData.id%>/delete?_method=DELETE">
+                    <button class="edit-btn delete-btn">Delete</button></form>
+                </div>
+                <form method="post" action="/listings/<%=listData.id%>/review">
+                    <hr>
+                        <div> 
+                            <h3>Add Review</h3>
+                        </div>
+                        <div>
+                            <label for="range" class="form-label">Rate this Listing</label>
+                            <input type="range" class="form-range" min="1" max="5" id="range" name="rating">
+
+                        </div>
+                        <div class="mb-3">
+                            <label for="cmt" class="form-label">Example textarea</label>
+                            <textarea name="comment" class="form-control" id="cmt" rows="5" placeholder="Write Your Review"></textarea>
+                          </div>
+                            <div class="col-3">
+                                <button class="edit-btn delete-btn mb-2">Submit</button>
+                            </div>
+                </form>
+            </div>
+        </div>
+   </div>
+    
+    <%-include('../includes/footer.ejs')%>
+</body>
