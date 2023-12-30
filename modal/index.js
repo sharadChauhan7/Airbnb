@@ -52,6 +52,12 @@ const PropertySchema = mongoose.Schema({
     }
     ]
 });
+// Post Middleware for deleting Reviews
+PropertySchema.post("findOneAndDelete",async(listing)=>{
+        let result =await Review.deleteMany({_id:{$in:listing.reviews}});
+        console.log(result);
+});
+
 const Listing = mongoose.model("Listing", PropertySchema);
 module.exports = Listing;
 

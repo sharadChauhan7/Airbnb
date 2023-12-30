@@ -8,7 +8,8 @@ const myError = require("./utils/myErrors");
 const asyncWrap=require("./utils/asyncWrap");
 const Review=require("./modal/review");
 
-// const {listingValidation}=require("./schema.js");
+const {listingSchema} =require("./schema.js");
+const {reviewSchema} =require("./schema.js");
 app.use(methodOverride('_method'));
 
 
@@ -26,6 +27,29 @@ app.engine('ejs',ejsMate);
 app.set("view engine","ejs");
 app.set("views",path.join(__dirname,"/views"));
 
+
+// Middleware
+const validateListing=(req,res,next)=>{
+    let result= listingSchema.validate(req.body);
+    if(result.error){
+        let msg=result.error.details.map(el=>el.message).join(",");
+        throw new myError(400,msg);
+    }
+    else{
+        next();
+    }
+
+}
+const validateReview=(req,res,next)=>{
+    let result= reviewSchema.validate(req.body);
+    if(result.error){
+        let msg=result.error.details.map(el=>el.message).join(",");
+        throw new myError(400,msg);
+    }
+    else{
+        next();
+    }
+}
 // Testing Mode
 app.get("/admin",(req,res)=>{
     res.render("listings/form.ejs",{who:"Create"});
@@ -41,7 +65,7 @@ app.get("/listings",asyncWrap(async (req,res)=>{
 // Show Route
 app.get("/listings/:id/show",asyncWrap(async (req,res)=>{
     let{id}=req.params;
-    let listData= await Listing.findById(id);
+    let listData= await Listing.findById(id).populate("reviews");
     res.render("listings/show.ejs",{listData,who:"View"})
 }));
 
@@ -51,10 +75,8 @@ app.get("/listings/new",(req,res)=>{
 });
 
 // Post Route
-app.post("/listings",asyncWrap(async (req,res)=>{
-    // let result=listingValidation.validate(req.body);
-    // console.log(result);
-    let newListing= new Listing(req.body);
+app.post("/listings",validateListing,asyncWrap(async (req,res)=>{
+    let newListing= new Listing(req.body.listing);
     await newListing.save();
     res.redirect("/listings");
 }));
@@ -67,7 +89,7 @@ app.get("/listings/:id/edit",asyncWrap(async (req,res)=>{
 }));
 
 // Update Route
-app.put("/listings/:id/edit", asyncWrap(async (req,res,next)=>{
+app.put("/listings/:id/edit",validateListing, asyncWrap(async (req,res,next)=>{
         let {id}=req.params;
         await Listing.findByIdAndUpdate(id,req.body, {runValidators: true });
         res.redirect("/listings");
@@ -80,16 +102,23 @@ app.delete("/listings/:id/delete",asyncWrap(async (req,res)=>{
 }));
 
 // Review Route
-app.post("/listings/:id/review",asyncWrap(async(req,res,next)=>{
+app.post("/listings/:id/review",validateReview,asyncWrap(async(req,res,next)=>{
     let {id}=req.params;
-    console.log(req.body);
-    let newReview=new Review(req.body);
+    let newReview=new Review(req.body.review);
     let listData= await Listing.findById(id);
-    listData.reviews.push(data);
+    listData.reviews.push(newReview);
     
     await newReview.save();
     await listData.save();
-    res.send("Review");
+    res.redirect(`/listings/${id}/show`);
+}));
+
+// Delete Review
+app.delete("/listings/:id/review/:reviewid",asyncWrap(async(req,res)=>{
+    let {id,reviewid}=req.params;
+    await Review.findByIdAndDelete(reviewid);
+    await Listing.findByIdAndUpdate(id,{$pull:{reviews:reviewid}});
+    res.redirect(`/listings/${id}/show`)
 }));
 
 app.get("/listings/:id/review",asyncWrap(async(req,res,next)=>{
@@ -106,7 +135,6 @@ app.all("*",(req,res,next)=>{
 });
 app.use((err,req,res,next)=>{
     let {statusCode=500,message="Some Error Occure"}=err;
-    console.log(message);
     res.render("listings/Error.ejs",{who:"Error",message});
 });
 app.listen(port,()=>{

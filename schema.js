@@ -8,9 +8,9 @@ module.exports.schema=joi.object({
         .required()
         .max(40),
 
-        discription: joi.string()
+        description: joi.string()
         .required()
-        .max(200),
+        .max(400),
 
         country: joi.string()
         .required(),
@@ -26,3 +26,16 @@ module.exports.schema=joi.object({
         .allow("",null)
     }).required()
 })
+
+module.exports.reviewSchema=joi.object({
+    review: joi.object({
+        comment: joi.string()
+        .required()
+        .max(400),
+
+        rating: joi.number()
+        .required()
+        .min(1)
+        .max(5)
+    }).required()
+}).required();
