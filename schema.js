@@ -2,7 +2,7 @@ const joi=require("joi");
 
 // Schema Validation
 
-module.exports.schema=joi.object({
+module.exports.listingSchema=joi.object({
     listing : joi.object({
         title: joi.string()
         .required()

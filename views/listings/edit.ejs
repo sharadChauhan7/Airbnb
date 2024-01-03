@@ -1,6 +1,5 @@
 <% layout('layouts/boilerplate.ejs') %>
 <body>
-    <%-include('../includes/navbar.ejs')%>
     <div class="row offset-1 mt-4 offset-sm-2 offset-md-3">
         <div class="col-10 col-md-8">
     <!-- <h1>Create a new Listing</h1> -->
@@ -8,7 +7,7 @@
     <div class="row ofset-3">
         <div class="mb-3 col-12">
             <label for="title" class="form-label"><h4>Title</h4><p class="extra-info">Title for your place. should be short and catchy as in advertisement</p></label>
-            <input type="text" name="title"  class="form-control"  placeholder="Enter the Name" id="title" value="<%=List.title%>" required> 
+            <input type="text" name="listing[title]"  class="form-control"  placeholder="Enter the Name" id="title" value="<%=List.title%>" required> 
             <div class="valid-feedback">
                 Title looks good
             </div>
@@ -18,14 +17,14 @@
         </div>
         <div class="mb-3 col-4">
             <label for="location"><h4>Address</h4><p class="extra-info">Address to this place</p></label>
-            <input type="text" name="location" class="form-control"   placeholder="Enter the Location" value="<%=List.location%>" id="location" required> 
+            <input type="text" name="listing[location]" class="form-control"   placeholder="Enter the Location" value="<%=List.location%>" id="location" required> 
             <div class="invalid-feedback">
                 Enter your Address.
             </div>
         </div>
         <div class="mb-3 col-8">
             <label for="country"><h4>Country</h4><p class="extra-info">Country</p></label>
-            <input type="text" name="country" class="form-control"  placeholder="Enter the Country" value="<%=List.country%>" id="country" required>
+            <input type="text" name="listing[country]" class="form-control"  placeholder="Enter the Country" value="<%=List.country%>" id="country" required>
             <div class="invalid-feedback">
                 Select Your Country.
             </div>
@@ -35,11 +34,11 @@
                 <img class="show-image mb-3" src="<%=List.image%>" alt="">
             </div>
             <label for="image"><h4>Photos <p class="extra-info">Photos=Better</p></h4> </label>
-            <input type="text" name="image" class="form-control" value="<%=List.image%>" placeholder="Add using a link......jpg" id="image" >
+            <input type="text" name="listing[image]" class="form-control" value="<%=List.image%>" placeholder="Add using a link......jpg" id="image" >
         </div>
         <div class="mb-3 col-12">
             <label for="description"><h4>Description</h4> <p class="extra-info">Description of the place</p></label>
-            <textarea name="description" id="description" class="form-control" rows="4" placeholder="Enter the Description" required><%=List.description%></textarea>
+            <textarea name="listing[description]" id="description" class="form-control" rows="4" placeholder="Enter the Description" required><%=List.description%></textarea>
             <div class="valid-feedback">
                 Description looks good
             </div>
@@ -49,7 +48,7 @@
         </div>
         <div class="mb-3 col-12">
             <label for="price"><h4>Price</h4><p class="extra-info">Price per night of this place</p></label>
-            <input type="text" name="price"  class="form-control"  value="<%=List.price%>" placeholder="Pricing/night" id="price" required>
+            <input type="text" name="listing[price]"  class="form-control"  value="<%=List.price%>" placeholder="Pricing/night" id="price" required>
             <div class="invalid-feedback">
                 Enter a valid Price
             </div> 
@@ -59,5 +58,4 @@
     </form>
 </div>
 </div>
-    <%-include('../includes/footer.ejs')%>
 </body>

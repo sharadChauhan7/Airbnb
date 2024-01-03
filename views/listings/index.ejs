@@ -1,7 +1,6 @@
 <%layout('layouts/boilerplate.ejs')-%>
 
     <body>
-        <%-include('../includes/navbar.ejs')%>
             <div class="wrapper">
                 <%for(obj of Listings){%>
                     <a href="/listings/<%=obj.id%>/show" class="listing-links">
@@ -19,5 +18,4 @@
                     </a>
                     <%}%>
             </div>
-            <%-include('../includes/footer.ejs')%>
     </body>
