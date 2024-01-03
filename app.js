@@ -5,9 +5,15 @@ const ejsMate=require("ejs-mate");
 const methodOverride = require('method-override');
 const myError = require("./utils/myErrors");
 const cookieParser = require('cookie-parser');
+const passport=require('passport');
+const localStrategy=require('passport-local');
 
+// Routs
 const listings=require("./routs/listings.js");
 const reviews=require("./routs/reviews.js");
+const signup=require("./routs/signup.js");
+
+const user=require("./modal/user.js");
 
 const session=require('express-session')
 const flash=require('connect-flash');
@@ -53,10 +59,19 @@ app.use((req,res,next)=>{
     next();
 })
 
+// Passport
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new localStrategy(user.authenticate()));
+passport.serializeUser(user.serializeUser());
+passport.deserializeUser(user.deserializeUser());
+
+
 // Routs 
 
 app.use("/listings",listings);
 app.use("/listings/:id/review",reviews);
+app.use('/',signup);
 
 // Error Handling Middlewares
 
