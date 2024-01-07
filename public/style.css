@@ -1,6 +1,7 @@
 body{
     /* height: 100vh; */
     background-color: #F7F7F7;
+    /* padding: 20px 5%; */
 }
 .body{
     min-height: 78vh;
@@ -62,17 +63,18 @@ footer a:hover{
     color: #5E5E5E;
 }
 .wrapper{
-    display: flex;
-    justify-content: space-between;
+    /* display: flex;
+    justify-content:center;
     align-items: center;
     /* height: 100vh; */
-    flex-wrap: wrap;
+    /* align-content: baseline; */
+    /* flex-wrap: wrap;
     padding: 20px 5vw;
-    gap: 20px;
+    gap: 50px; */ 
 }
 .wrapper .card1{
     color: #222;
-    width: 285px;
+    /* width: 285px; */
     height: 370px;
     margin: 5px 0;
 }
@@ -106,7 +108,7 @@ footer a:hover{
 /* Show Card */
 .show-image{
     width: 100%;
-    height: 450px;
+    max-height: 450px;
     border-radius: 15px;
     object-fit: cover;
 }

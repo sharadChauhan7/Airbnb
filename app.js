@@ -52,19 +52,20 @@ app.set("views",path.join(__dirname,"/views"));
 // For Cookies
 app.use(cookieParser("secretcode"));
 
-// Flash Middleware
-app.use((req,res,next)=>{
-    res.locals.success=req.flash("success");
-    res.locals.error=req.flash("error");
-    next();
-})
-
 // Passport
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new localStrategy(user.authenticate()));
 passport.serializeUser(user.serializeUser());
 passport.deserializeUser(user.deserializeUser());
+
+// Flash Middleware
+app.use((req,res,next)=>{
+    res.locals.success=req.flash("success");
+    res.locals.error=req.flash("error");
+    res.locals.currUser = req.user;
+    next();
+});
 
 
 // Routs 

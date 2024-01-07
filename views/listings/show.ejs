@@ -1,9 +1,9 @@
 <% layout('layouts/boilerplate.ejs') %>
 <body>
 
-   <div class="row offset-3 mt-4">
-        <div class="col-8">
-            <div class="row">
+   <div class=" row mt-4 mx-2 justify-content-center">
+        <div class="col-12 col-md-10 col-lg-8 ">
+            <div class="row-md row-cols-sm-1 ">
 
                 <div>
                     <h3>
@@ -16,14 +16,14 @@
                 <div> 
                     <img class="show-image mb-3" src="<%=listData.image%>" alt="">
                 </div>
-                <div class="col-6 mb-5">
+                <div class="col-12 mb-5">
                     <h5>Description</h5>
                     <%=listData.description%>
                 </div>
-                <div class="col-6 mb-5">
+                <!-- <div class="col-6 mb-5">
                     <div class="mail">
                         <div class="box row">
-                            <h5>Price: &#8377 <%=listData.price%> / per night</h5>
+                            <h5>Price: &#8377 <listData.price%> / per night</h5>
                             <p>
                                 To get best experience of life book now.
                             </p>
@@ -34,13 +34,15 @@
                              <button type="button" class="btn-main"> Book this place</button>
                         </div>
                     </div>
-                </div>
-                <div class="col-6 mb-5">
-                    <a href="/listings/<%=listData.id%>/edit" class="edit-btn btn">Edit</a>
-                </div>
-                <div class="col-6 mb-5">
-                    <form method="post" action="/listings/<%=listData.id%>/delete?_method=DELETE">
-                    <button class="edit-btn delete-btn">Delete</button></form>
+                </div> -->
+                <div class="row">
+                    <div class="col-6 mb-5">
+                        <a href="/listings/<%=listData.id%>/edit" class="edit-btn btn">Edit</a>
+                    </div>
+                    <div class="col-6 mb-5">
+                        <form method="post" action="/listings/<%=listData.id%>/delete?_method=DELETE">
+                        <button class="edit-btn delete-btn">Delete</button></form>
+                    </div>
                 </div>
                 <form method="post" action="/listings/<%=listData.id%>/review" class="needs-validation" novalidate>
                     <hr>

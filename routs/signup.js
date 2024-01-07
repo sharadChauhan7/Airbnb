@@ -4,6 +4,7 @@ const asyncWrap = require("../utils/asyncWrap");
 const myError = require("../utils/myErrors");
 const user = require("../modal/user");
 const passport = require("passport");
+const { saveRedirecturl } = require("../middleware/middleware");
 
 // Sign up user
 
@@ -20,9 +21,14 @@ router.post(
     try {
       let { username, email, password } = req.body;
       let newUser = new user({ username, email });
-      await user.register(newUser, password);
-      req.flash("success", "Signed up");
-      res.redirect("/listings");
+      let result = await user.register(newUser, password);
+      req.login(result, (err) => {
+        if (err) {
+          nextTick(err);
+        }
+        req.flash("success", "Signed up");
+        res.redirect("/listings");
+      });
     } catch (e) {
       req.flash("error", e.message);
       res.redirect("/signup");
@@ -41,14 +47,29 @@ router.get(
 
 router.post(
   "/setlogin",
-  passport.authenticate(
-    "local",
-    { failureRedirect: "/login", failureFlash: true }
-  ),
-  async(req,res)=>{
-    req.flash("success","Loged in");
-    res.redirect('/listings');
+  saveRedirecturl,
+  passport.authenticate("local", {
+    failureRedirect: "/login",
+    failureFlash: true,
+  }),
+  async (req, res) => {
+    req.flash("success", "Loged in");
+    res.redirect(res.locals.redirectUrl || '/listings');
   }
+);
+
+// Logout user
+router.get(
+  "/logout",
+  asyncWrap(async (req, res) => {
+    req.logout((err) => {
+      if (err) {
+        throw myError(400, err.message);
+      }
+      req.flash("success", "Succesfully Loged out");
+      res.redirect("/listings");
+    });
+  })
 );
 
 module.exports = router;
