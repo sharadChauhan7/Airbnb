@@ -16,6 +16,9 @@
                 <div> 
                     <img class="show-image mb-3" src="<%=listData.image%>" alt="">
                 </div>
+                <div>
+                   <p> <b>Created by:</b> <%=listData.owner.username%></p> 
+                </div>
                 <div class="col-12 mb-5">
                     <h5>Description</h5>
                     <%=listData.description%>
@@ -35,6 +38,7 @@
                         </div>
                     </div>
                 </div> -->
+                <%if( currUser &&currUser._id.equals(listData.owner._id)){ %>
                 <div class="row">
                     <div class="col-6 mb-5">
                         <a href="/listings/<%=listData.id%>/edit" class="edit-btn btn">Edit</a>
@@ -44,14 +48,27 @@
                         <button class="edit-btn delete-btn">Delete</button></form>
                     </div>
                 </div>
+                <%}%>
                 <form method="post" action="/listings/<%=listData.id%>/review" class="needs-validation" novalidate>
                     <hr>
                         <div> 
                             <h3>Add Review</h3>
                         </div>
                         <div>
-                            <label for="range" class="form-label">Rate this Listing</label>
-                            <input type="range" class="form-range" min="1" max="5" id="range" name="review[rating]">
+                            <fieldset class="starability-grow">
+                                <legend>First rating:</legend>
+                                <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
+                                <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+                                <label for="first-rate1" title="Terrible">1 star</label>
+                                <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+                                <label for="first-rate2" title="Not good">2 stars</label>
+                                <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+                                <label for="first-rate3" title="Average">3 stars</label>
+                                <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+                                <label for="first-rate4" title="Very good">4 stars</label>
+                                <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+                                <label for="first-rate5" title="Amazing">5 stars</label>
+                            </fieldset>
 
                         </div>
                         <div class="mb-3">
@@ -67,16 +84,22 @@
                 </form>
                 <hr>
             </div>
-            <div class="row">
+            <div class="row-cols-1">
                 <h3>Reviews</h3>
                 <% for(review of listData.reviews){ %>
-                    <div class="col-6 mb-4">
+                    <div class="col-12 mb-4">
                         <div class="card">
                             <div class="card-body">
-                              <h5 class="card-title"><%=review.rating%> Star</h5>
+                              <h5 class="card-title">@<%-review.author.username%></h5>
+                              <p class="starability-result" style="font-size: 1rem;" data-rating="<%=review.rating%>">
+                                Rated: 3 stars
+                              </p>
                               <p class="card-text"><%=review.comment%></p>
                               <form method="post" action="/listings/<%=listData.id%>/review/<%=review.id%>?_method=DELETE">
-                                <button class="edit-btn delete-btn">Delete</button></form>
+                                <%if( currUser && currUser._id.equals(review.author._id)){ %>
+                                <button class="edit-btn delete-btn" style="width: 8rem;">Delete</button>
+                                <%}%>
+                            </form>
                             </div>
                           </div>                          
                     </div>

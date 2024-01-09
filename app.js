@@ -8,10 +8,11 @@ const cookieParser = require('cookie-parser');
 const passport=require('passport');
 const localStrategy=require('passport-local');
 
+
 // Routs
 const listings=require("./routs/listings.js");
 const reviews=require("./routs/reviews.js");
-const signup=require("./routs/signup.js");
+const auth=require("./routs/auth.js");
 
 const user=require("./modal/user.js");
 
@@ -72,7 +73,7 @@ app.use((req,res,next)=>{
 
 app.use("/listings",listings);
 app.use("/listings/:id/review",reviews);
-app.use('/',signup);
+app.use('/',auth);
 
 // Error Handling Middlewares
 

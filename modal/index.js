@@ -25,9 +25,8 @@ const PropertySchema = mongoose.Schema({
         required: true,
     },
     image: {
-        type: String,
-        set: (v) => v === "" ? v = "https://plus.unsplash.com/premium_photo-1700124504129-02393b281f06?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyNXx8fGVufDB8fHx8fA%3D%3D" : v,
-        default: "https://plus.unsplash.com/premium_photo-1700124504129-02393b281f06?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyNXx8fGVufDB8fHx8fA%3D%3D",
+        url: String,
+        filename: String,
     },
     price: {
         type: Number,
@@ -49,8 +48,11 @@ const PropertySchema = mongoose.Schema({
     reviews: [{
         type: Schema.Types.ObjectId,
         ref:"review"
+    }],
+    owner:{
+        type:Schema.Types.ObjectId,
+        ref:"user"
     }
-    ]
 });
 // Post Middleware for deleting Reviews
 PropertySchema.post("findOneAndDelete",async(listing)=>{
