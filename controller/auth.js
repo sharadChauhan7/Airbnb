@@ -28,6 +28,9 @@ module.exports.getLogin = async (req, res) => {
 
 module.exports.Login = async (req, res) => {
     req.flash("success", "Loged in");
+    if(res.locals.redirectUrl){
+      res.locals.redirectUrl=res.locals.redirectUrl.replace('/review','/show');
+    }
     res.redirect(res.locals.redirectUrl || '/listings');
 };
 

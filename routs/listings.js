@@ -29,9 +29,10 @@ router.get("/:id/edit", isLogin, isowner, asyncWrap(Listing.editListing));
 // Update Route
 router.put(
   "/:id/edit",
-  validateListing,
   isLogin,
   isowner,
+  upload.single('listing[image]'),
+  validateListing,
   asyncWrap(Listing.updateListing)
 );
 // Delete Route

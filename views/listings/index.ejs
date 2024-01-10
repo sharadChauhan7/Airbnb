@@ -5,7 +5,7 @@
                 <%for(obj of Listings){%>
                     <a href="/listings/<%=obj.id%>/show" class="listing-links">
                         <div class="card1">
-                            <img src="<%=obj.image%>">
+                            <img src="<%=obj.image.url%>">
                             <div class="card1-body">
                                 <h5 class="card1-text">
                                     <%=obj.title%>

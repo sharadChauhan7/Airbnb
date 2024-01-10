@@ -20,7 +20,6 @@ module.exports.saveRedirecturl=(req,res,next)=>{
 }
 
 module.exports.validateListing = (req, res, next) => {
-    console.log(req.body);
     let result = listingSchema.validate(req.body);
     if (result.error) {
       let msg = result.error.details.map((el) => el.message).join(",");
