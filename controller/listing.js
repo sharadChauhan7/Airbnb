@@ -1,5 +1,11 @@
 const Listing = require("../modal/index");
 const myError = require("../utils/myErrors");
+const mbxClient = require('@mapbox/mapbox-sdk');
+const mbgeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
+require('dotenv').config();
+const mapToken=process.env.MAP_TOKEN;
+const baseClient = mbxClient({ accessToken: mapToken });
+const geocodingClient= mbgeocoding(baseClient);
 
 module.exports.home=async (req, res) => {
     let Listings = await Listing.find();
@@ -24,8 +30,21 @@ module.exports.postListing=async (req, res) => {
     let url=req.file.path;
     let filename=req.file.filename;
     let newListing = new Listing(req.body.listing);
+
+    // Map
+    let match = await geocodingClient.forwardGeocode({
+      query: req.body.listing.location,
+      limit: 1
+    }).send()
+
+    // Adding owner
     newListing.image={url,filename}; 
     newListing.owner=req.user._id;
+    // Adding geometry
+
+    newListing.geometry=match.body.features[0].geometry;
+    console.log(newListing);
+    
     await newListing.save();
     req.flash("success", "New Listing Created");
     res.redirect("/listings");
