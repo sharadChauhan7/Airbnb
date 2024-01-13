@@ -43,8 +43,7 @@ module.exports.postListing=async (req, res) => {
     // Adding geometry
 
     newListing.geometry=match.body.features[0].geometry;
-    console.log(newListing);
-    
+
     await newListing.save();
     req.flash("success", "New Listing Created");
     res.redirect("/listings");
@@ -58,7 +57,7 @@ module.exports.editListing=async (req, res) => {
       res.redirect("/listings");
     } else {
       let originalImg = List.image.url;
-      originalImg = originalImg.replace("/upload","/upload/c_fit,w_250");
+      // originalImg = originalImg.replace("/upload","/upload/c_fit,w_250");
       res.render("listings/edit.ejs", { List, who: "Edit" ,originalImg});
     }
 };
@@ -66,10 +65,19 @@ module.exports.editListing=async (req, res) => {
 module.exports.updateListing=async (req, res, next) => {
     let { id } = req.params;
     // Saving Image
-    let url=req.file.path;
-    let filename=req.file.filename;
-    req.body.listing.image={url,filename};
-
+        // Map
+        let match = await geocodingClient.forwardGeocode({
+          query: req.body.listing.location,
+          limit: 1
+        }).send()
+        req.body.listing.geometry=match.body.features[0].geometry;
+    
+    if(req.file){
+      let url=req.file.path;
+      let filename=req.file.filename;
+      req.body.listing.image={url,filename};
+    }
+    // Adding geometry
     await Listing.findByIdAndUpdate(id, req.body.listing, { runValidators: true });
     req.flash("success", "Listing Updated");
     res.redirect(`/listings/${id}/show`);
@@ -85,6 +93,11 @@ module.exports.destroyListing=async (req, res) => {
       req.flash("success", "Listing Deleted");
       res.redirect("/listings");
     }
+}
+module.exports.filter=async(req,res)=>{
+  let {name="none"}=req.query;
+  let Listings = await Listing.find({category:{$in:[name]}});
+  res.render("listings/index.ejs", { Listings, who: "Home" });
 }
 
 

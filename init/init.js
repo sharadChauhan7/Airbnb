@@ -23,6 +23,7 @@ async function initdb() {
       limit: 1
     }).send() 
     fdata.geometry=match.body.features[0].geometry;
+    fdata.category=["Rooms"];
 
     newdata.push(fdata);
     }

@@ -27,7 +27,7 @@
                     <h5>Description</h5>
                     <%=listData.description%>
                 </div>
-                <!-- <div class="col-6 mb-5">
+                <!-- <div class="col-12 mb-5 ">
                     <div class="mail">
                         <div class="box row">
                             <h5>Price: &#8377 <listData.price%> / per night</h5>
@@ -45,10 +45,10 @@
                 <%if( currUser &&currUser._id.equals(listData.owner._id)){ %>
                 <div class="row">
                     <div class="col-6 mb-5">
-                        <a href="/listings/<%=listData.id%>/edit" class="edit-btn btn">Edit</a>
+                        <a href="/listings/<%=listData.id%>" class="edit-btn btn">Edit</a>
                     </div>
                     <div class="col-6 mb-5">
-                        <form method="post" action="/listings/<%=listData.id%>/delete?_method=DELETE">
+                        <form method="post" action="/listings/<%=listData.id%>?_method=DELETE">
                         <button class="edit-btn delete-btn">Delete</button></form>
                     </div>
                 </div>
@@ -93,6 +93,7 @@
                 <div id="map"> </div>
             </div>
             <div class="row-cols-1">
+                <hr>
                 <h3>Reviews</h3>
                 <% for(review of listData.reviews){ %>
                     <div class="col-12 mb-4">

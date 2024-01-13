@@ -63,7 +63,11 @@ const PropertySchema = mongoose.Schema({
     owner:{
         type:Schema.Types.ObjectId,
         ref:"user"
-    }
+    },
+    category:[{
+        type:String,
+        enum:["Rooms","Lake","Beach","Trending","Mountains","Pool","Camping","City"],
+    }]
 });
 // Post Middleware for deleting Reviews
 PropertySchema.post("findOneAndDelete",async(listing)=>{

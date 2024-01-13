@@ -1,6 +1,54 @@
 <%layout('layouts/boilerplate.ejs')-%>
 
     <body>
+            <div class="filters container1 d-flex py-1 p-5">
+                    <div class="d-flex show">
+                        <a href="/listings/filter/?name=Mountains">
+                            <div class="filter text-center pt-2 mx-2">
+                                <div><i class="fa-solid fa-mountain-city"></i></div>
+                                <div>Mountain</div>
+                            </div>
+                        </a>
+                        <a href="/listings/filter/?name=Rooms">
+                            <div class="filter text-center pt-2 mx-2">
+                                <div><i class="fa-solid fa-bed"></i></div>
+                                <div>Rooms</div>
+                            </div>
+                        </a>
+                        <a href="/listings/filter/?name=Pool">
+                            <div class="filter text-center pt-2 mx-2">
+                                <div><i class="fa-solid fa-person-swimming"></i></div>
+                                <div>Pool</div>
+                            </div>
+                        </a>
+                        <a href="/listings/filter/?name=Lake">
+                            <div class="filter text-center pt-2 mx-2">
+                                <div><i class="fa-solid fa-water"></i></div>
+                                <div>Lake</div>
+                            </div>
+                        </a>
+                        <a href="/listings/filter/?name=Beach">
+                            <div class="filter text-center pt-2 mx-2">
+                                <div><i class="fa-solid fa-umbrella-beach"></i></div>
+                                <div>Beach</div>
+                            </div>
+                        </a>
+                        <a href="/listings/filter/?name=City">
+                            <div class="filter text-center pt-2 mx-2">
+                                <div><i class="fa-solid fa-city"></i></div>
+                                <div>City</div>
+                            </div>
+                        </a>
+                        <a href="/listings/filter/?name=Camping">
+                            <div class="filter text-center pt-2 mx-2">
+                                <div><i class="fa-solid fa-campground"></i></div>
+                                <div>Camping</div>
+                            </div>
+                        </a>
+                    </div>
+
+                
+            </div>
             <div class="wrapper row row-cols-xl-4 row-cols-lg-3 row-cols-sm-2 mx-4 my-2">
                 <%for(obj of Listings){%>
                     <a href="/listings/<%=obj.id%>/show" class="listing-links">

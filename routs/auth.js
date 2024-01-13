@@ -10,32 +10,31 @@ const Listings = require("../controller/auth.js");
 
 // Sign up user
 
-router.get(
-  "/signup",
-  asyncWrap(Listings.getSignup)
-);
+router
+  .route('/signup')
+  .get(
+    asyncWrap(Listings.getSignup)
+  )
+  .post(
+    asyncWrap(Listings.postSignup)
+  )
 
-router.post(
-  "/setUser",
-  asyncWrap(Listings.postSignup)
-);
 
 // Log in user
 
-router.get(
-  "/login",
-  asyncWrap(Listings.getLogin)
-);
-
-router.post(
-  "/setlogin",
-  saveRedirecturl,
-  passport.authenticate("local", {
-    failureRedirect: "/login",
-    failureFlash: true,
-  }),
-  Listings.Login
-);
+router
+  .route('/login')
+  .get(
+    asyncWrap(Listings.getLogin)
+  )
+  .post(
+    saveRedirecturl,
+    passport.authenticate("local", {
+      failureRedirect: "/login",
+      failureFlash: true,
+    }),
+    Listings.Login
+  )
 
 // Logout user
 router.get(

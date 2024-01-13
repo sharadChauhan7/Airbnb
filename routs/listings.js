@@ -11,31 +11,42 @@ const Listing=require('../controller/listing');
 const multer  = require('multer');
 const { storage } = require('../cloudinary');
 const upload = multer({storage});
+router
+  .route('/')
+  // Home
+  .get( asyncWrap(Listing.home))
+  // Post listing
+  .post(upload.single('listing[image]'),validateListing,asyncWrap(Listing.postListing));
 
-router.get("/", asyncWrap(Listing.home));
 
 // Show Route
-router.get("/:id/show", asyncWrap(Listing.showListings));
+router
+  .route("/:id/show")
+  .get(asyncWrap(Listing.showListings))
+
 
 // New Route
-router.get("/new", isLogin, Listing.listingForm);
+router
+.route("/new")
+.get(isLogin, Listing.listingForm);
 
-// Post Route
-router.post("/",upload.single('listing[image]'),validateListing,asyncWrap(Listing.postListing));
 
 // Edit Route
-router.get("/:id/edit", isLogin, isowner, asyncWrap(Listing.editListing));
+router
+  .route("/:id")
+  .get(isLogin, isowner, asyncWrap(Listing.editListing))
+  .put(
+    isLogin,
+    isowner,
+    upload.single('listing[image]'),
+    validateListing,
+    asyncWrap(Listing.updateListing)
+  )
+  .delete(isLogin, isowner, asyncWrap(Listing.destroyListing))
 
-// Update Route
-router.put(
-  "/:id/edit",
-  isLogin,
-  isowner,
-  upload.single('listing[image]'),
-  validateListing,
-  asyncWrap(Listing.updateListing)
-);
-// Delete Route
-router.delete("/:id/delete", isLogin, isowner, asyncWrap(Listing.destroyListing));
+// Filter Route
+router
+  .route('/filter')
+  .get(asyncWrap(Listing.filter));
 
 module.exports = router;

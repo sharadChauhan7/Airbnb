@@ -23,7 +23,10 @@ module.exports.listingSchema=joi.object({
         .min(0),
 
         image :joi.string()
-        .allow("",null)
+        .allow("",null),
+
+        category :joi.array()
+        .items(joi.string()),
     }).required()
 })
 

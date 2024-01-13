@@ -3,7 +3,7 @@ mapboxgl.accessToken =
 const map = new mapboxgl.Map({
   container: "map", // container ID
   center: coordinate, // starting position [lng, lat]
-  zoom: 9, // starting zoom
+  zoom: 13, // starting zoom
 });
 
 const el = document.createElement('div');
