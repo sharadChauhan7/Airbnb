@@ -11,6 +11,11 @@ const Listing=require('../controller/listing');
 const multer  = require('multer');
 const { storage } = require('../cloudinary');
 const upload = multer({storage});
+
+// Filter Route
+router.get('/filter',asyncWrap(Listing.filter));
+
+
 router
   .route('/')
   // Home
@@ -44,9 +49,5 @@ router
   )
   .delete(isLogin, isowner, asyncWrap(Listing.destroyListing))
 
-// Filter Route
-router
-  .route('/filter')
-  .get(asyncWrap(Listing.filter));
 
 module.exports = router;

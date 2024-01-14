@@ -77,10 +77,10 @@ app.use('/',auth);
 
 // Error Handling Middlewares
 
-// app.all("*",(req,res,next)=>{
-//     // console.log(req.signedCookies);
-//     next(new myError(404,"Page not Found"));
-// });
+app.all("*",(req,res,next)=>{
+    // console.log(req.signedCookies);
+    next(new myError(404,"Page not Found"));
+});
 
 app.use((err,req,res,next)=>{
     console.log(err);
