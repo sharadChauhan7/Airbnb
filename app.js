@@ -10,6 +10,9 @@ const localStrategy=require('passport-local');
 
 
 // Routs
+app.get("/",(req,res)=>{
+    res.redirect('/listings');
+})
 const listings=require("./routs/listings.js");
 const reviews=require("./routs/reviews.js");
 const auth=require("./routs/auth.js");
