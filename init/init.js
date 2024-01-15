@@ -8,27 +8,39 @@ const geocodingClient= mbgeocoding(baseClient);
 
 
 async function initdb() {
-  await Listing.deleteMany({});
+  // await Listing.deleteMany({});
   let data=bulk.data;
   let finaldata=data.map((data)=>{
     return({...data,owner:"659921c30e7bbc29c61f4f01"});
   });
 
   // finaldata=finaldata.map(async(data)=>{
-    let newdata=[];
-    for(fdata of finaldata){
+    // let newdata=[];
+    // for(let fdata of finaldata){
 
-    let match = await geocodingClient.forwardGeocode({
-      query: fdata.location,
-      limit: 1
-    }).send() 
-    fdata.geometry=match.body.features[0].geometry;
-    fdata.category=["Rooms"];
+    // let match = await geocodingClient.forwardGeocode({
+    //   query: fdata.location,
+    //   limit: 1
+    // }).send() 
+    // fdata.geometry=match.body.features[0].geometry;
+    // fdata.category=["Rooms"];
 
-    newdata.push(fdata);
-    }
+    // newdata.push(fdata);
+    // }
   // })
-    console.log(finaldata);
+  // Testing
+  let newdata = await Promise.all(finaldata.map(async (fdata) => {
+    let match = await geocodingClient.forwardGeocode({
+        query: fdata.location,
+        limit: 1
+    }).send();
+    fdata.geometry = match.body.features[0].geometry;
+    fdata.category = ["Rooms"];
+    return fdata;
+    }));
+    console.log(newdata);
+
+    // console.log(finaldata);
 
   await Listing.insertMany(finaldata);
   console.log("done");

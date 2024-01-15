@@ -3,7 +3,9 @@ const myError = require("../utils/myErrors");
 const mbxClient = require('@mapbox/mapbox-sdk');
 const mbgeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
 require('dotenv').config();
+
 const mapToken=process.env.MAP_TOKEN;
+
 const baseClient = mbxClient({ accessToken: mapToken });
 const geocodingClient= mbgeocoding(baseClient);
 

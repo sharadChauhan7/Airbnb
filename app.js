@@ -21,14 +21,15 @@ const MongoStore = require('connect-mongo');
 const flash=require('connect-flash');
 require('dotenv').config();
 
+const secret=process.env.SECRET;
 const sessionOption={
-    secret:"ultiamteben10",
+    secret:secret,
     store: MongoStore.create({
         mongoUrl:`${process.env.MONGO_URL}`,
         crypto: {
-            secret: 'mongosecret'
+            secret: secret
         },
-        touchAfter:86400,
+        touchAfter:86400
     }),
     resave:false,
     saveUninitialized:true,
