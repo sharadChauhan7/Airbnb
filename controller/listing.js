@@ -96,7 +96,12 @@ module.exports.destroyListing=async (req, res) => {
 }
 module.exports.filter=async(req,res)=>{
   let {name="none"}=req.query;
+  name =name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
   let Listings = await Listing.find({category:{$in:[name]}});
+  if(Listings.length===0){
+    req.flash("error","No Listing Found");
+    return res.redirect('/listings');
+  }
   res.render("listings/index.ejs", { Listings, who: "Home" });
 }
 

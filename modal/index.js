@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const Review = require("./review");
 let url = 'mongodb://127.0.0.1:27017/airbnb';
+require('dotenv').config();
+let MongoUrl=process.env.MONGO_URL;
 
 main().then((res) => {
     console.log("Connection is up");
@@ -11,7 +13,7 @@ main().then((res) => {
     })
 
 async function main() {
-    await mongoose.connect(url);
+    await mongoose.connect(MongoUrl);
 };
 
 const PropertySchema = mongoose.Schema({

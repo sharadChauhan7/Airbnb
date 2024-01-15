@@ -1,16 +1,22 @@
-<nav class="navbar navbar-expand-md sticky-top ">
+<nav class="navbar navbar-expand-lg sticky-top ">
     <div class="container-fluid">
         <a href="/listings"class="navbar-brand">
             <img src="/assets/Logo.svg" alt="">
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"  data-bs-target="#navbarNavAltMarkup" aria-controls="navbarSupportedContent" >
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"  data-bs-target="#offcanvasExample" aria-controls="navbarSupportedContent" >
             <span class="navbar-toggler-icon"></span>
         </button> 
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="box">
               <div class="auth">
-                <a class="nav-link" href="/listings">Home</a>
+                <a class="nav-link" href="/listings">Explor</a>
                 <a class="nav-link" href="/listings/new">Airbnb Your Home</a>
+              </div>
+              <div class="container1">
+                <form class="d-flex" role="search" action="/listings/filter">
+                  <input class="form-control me-2 mx-auto" type="search" placeholder="Search filter keywords" name="name" style="max-width: 300px; border-radius: 25px;" aria-label="Search">
+                  <button class="btn btn-search"  type="submit">Search</button>
+                </form>
               </div>
               <div class="auth">
                 <%if(!currUser){%>
@@ -24,3 +30,43 @@
         </div>   
     </div>
 </nav>
+
+<!-- Offcanvas -->
+
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+  <div class="offcanvas-header">
+    <a href="/listings"class="navbar-brand">
+      <img src="/assets/Logo.svg" alt="">
+  </a>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+   <div class="box">
+    <div class="auth">
+      <a class="nav-link my-2" href="/listings">Explor</a>
+      <a class="nav-link my-2" href="/listings/new">Airbnb Your Home</a>
+    </div>
+    <div class="auth">
+      <%if(!currUser){%>
+        <a class="nav-link my-2"href="/login"><b>Login</b> </a>
+        <a class="nav-link my-2" href="/signup"><b>Signup</b></a> 
+      <% } %> <% if(currUser) { %>
+        <a class="nav-link my-2" href="/logout"><b>Logout</b></a> 
+      <% } %>
+    </div> 
+    <div class="container1 my-2">
+      <form class="d-flex" role="search" action="/listings/filter">
+        <input class="form-control me-2 mx-auto" type="search" placeholder="Search filter keywords" name="name" style="max-width: 300px; border-radius: 25px;" aria-label="Search">
+        <button class="btn btn-search"  type="submit">Search</button>
+      </form>
+    </div> 
+    <div class="reverse-check my-2" style="border-radius: 5px;">
+      <div class="form-check-reverse form-switch">
+          <label class="form-check-label" for="switch">Price after taxes</label>
+          <input class="form-check-input" type="checkbox" role="switch" id="switch">
+      </div>
+    </div>
+    
+  </div> 
+  </div>
+</div>

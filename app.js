@@ -17,10 +17,19 @@ const auth=require("./routs/auth.js");
 const user=require("./modal/user.js");
 
 const session=require('express-session')
+const MongoStore = require('connect-mongo');
 const flash=require('connect-flash');
+require('dotenv').config();
 
 const sessionOption={
     secret:"ultiamteben10",
+    store: MongoStore.create({
+        mongoUrl:`${process.env.MONGO_URL}`,
+        crypto: {
+            secret: 'mongosecret'
+        },
+        touchAfter:86400,
+    }),
     resave:false,
     saveUninitialized:true,
     cookie:{
@@ -83,7 +92,6 @@ app.all("*",(req,res,next)=>{
 });
 
 app.use((err,req,res,next)=>{
-    console.log(err);
     let {statusCode=500,message="Some Error Occure"}=err;
     res.render("listings/Error.ejs",{who:"Error",message});
 });

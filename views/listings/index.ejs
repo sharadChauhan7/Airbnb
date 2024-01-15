@@ -1,12 +1,12 @@
 <%layout('layouts/boilerplate.ejs')-%>
 
     <body>
-            <div class="filters container1 d-flex py-1 p-5">
-                    <div class="d-flex show">
+            <div class="filters container1 d-flex py-1 p-5 justify-content-between">
+                    <div class="d-flex show align-items-center">
                         <a href="/listings/filter/?name=Mountains">
                             <div class="filter text-center pt-2 mx-2">
                                 <div><i class="fa-solid fa-mountain-city"></i></div>
-                                <div>Mountain</div>
+                                <div>Mountains</div>
                             </div>
                         </a>
                         <a href="/listings/filter/?name=Rooms">
@@ -40,12 +40,19 @@
                             </div>
                         </a>
                         <a href="/listings/filter?name=Camping">
-                            <div class="filter text-center pt-2 mx-2">
+                            <div class="filter text-center pt-2 ml-auto">
                                 <div><i class="fa-solid fa-campground"></i></div>
                                 <div>Camping</div>
                             </div>
                         </a>
                     </div>
+                    <div class="reverse-check displaye">
+                        <div class="form-check-reverse form-switch ">
+                            <label class="form-check-label" for="switch">Price after taxes</label>
+                            <input class="form-check-input" type="checkbox" role="switch" id="switch">
+                        </div>
+                    </div>
+
 
                 
             </div>
@@ -58,8 +65,11 @@
                                 <h5 class="card1-text">
                                     <%=obj.title%>
                                 </h5>
-                                <p>
-                                    &#8377 <%=obj.price%>/night
+                                    <p>
+                                        &#8377
+                                    <span> 
+                                        <%=obj.price%>
+                                    </span>/night
                                 </p>
                             </div>
                         </div>

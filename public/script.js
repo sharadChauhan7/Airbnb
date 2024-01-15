@@ -17,3 +17,40 @@
       }, false)
     })
   })();
+
+
+  // Calculate GST
+  let taxe=false;
+        let btn =document.querySelector('#switch');
+        let btn1 =document.querySelector('.displaye');
+        let taxes=document.querySelectorAll('.card1 span');
+        let original=[];
+        for(let tax of taxes){
+            original.push(tax.innerText);
+        }
+
+        let changePrice =()=>{
+          if(taxe==false){
+              taxe=true;
+              let i=0;
+          for(let tax of taxes){
+
+                  afterTax=(original[i]*18)/100;
+                  let money=(+original[i])+(+afterTax);
+                  tax.innerText=` ${money}`;
+                  i++;
+          }
+          }
+          else{
+              taxe=false
+              let i=0;
+              for(let tax of taxes){
+                  tax.innerText=`${original[i]}`;
+                  i++
+              }
+          }
+      };
+      btn.addEventListener("click",changePrice);
+
+      btn1.addEventListener("click",changePrice);
+      console.log(btn1);

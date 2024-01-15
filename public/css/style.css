@@ -20,7 +20,7 @@ nav{
 .container-fluid{
     color: #5E5E5E;
     background-color: #fff;
-    padding: 10px 5vw;
+    padding: 10px 20px;
 } 
 .navbar .box{
     display: flex;
@@ -40,9 +40,22 @@ nav{
     justify-content: space-evenly;
     margin: 0 10px;
 }
+.btn-search{
+    background-color: transparent;
+    color: #fe424d ;
+    border: 2px solid #fe424d;
+    transition: all 0.3s ease;
+    padding: 0 25px;
+    border-radius: 25px;
+}
+.btn-search:hover{
+    background-color: #fe424d;
+    color: white;
+}
+
+
+/* footer */
 footer{
-    /* position: absolute;;
-    bottom: 0; */
     width: 100vw;
     background-color: #DDDDDD;
     padding: 10px 5vw;
@@ -223,6 +236,15 @@ a{
     display: flex;
     flex-direction: column;
 }
+
+.reverse-check{
+    border: 2px solid gray;
+    border-radius: 50px;
+    /* width: 200px; */
+    padding:20px;
+    max-width: 220px;
+    /* text-align: center; */
+}
 @media (max-width: 768px) {
     .collapse .auth{
         display: flex;
@@ -237,8 +259,10 @@ a{
         height: 400px;
     }
 }
-@media (max-width: 992px) {
-
+@media (max-width: 1100px) {
+    .displaye{
+        display: none;
+    }
 }
 @media (max-width: 500px) {
     .show-image{
