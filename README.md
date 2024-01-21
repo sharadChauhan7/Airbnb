@@ -1,15 +1,16 @@
 # Airbnb Clone
 
-![Airbnb Clone](link/to/your/logo.png)
+![Airbnb Clone](/public//assets/Logo.svg)
 
 This project is a clone of the Airbnb website, created to showcase my development skills using Node.js, Express, MongoDB, and Mapbox.
 
 ## Screenshots
 
-![Screenshot 1](link/to/screenshot1.png)
-![Screenshot 2](link/to/screenshot2.png)
-![Screenshot 3](link/to/screenshot3.png)
-![Screenshot 4](link/to/screenshot4.png)
+![Screenshot 1](/public/assets/Landing.png)
+![Screenshot 2](/public/assets/Creat.png)
+![Screenshot 2](/public/assets/Show.png)
+![Screenshot 3](/public/assets/Review.png)
+
 
 ## Features
 
