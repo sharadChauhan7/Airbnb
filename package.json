@@ -7,9 +7,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev":"nodemon app.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build":""
+    "dev":"nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
