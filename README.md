@@ -22,7 +22,6 @@ This project is a clone of the Airbnb website, created to showcase my developmen
 
 - Node.js
 - Express
-- 
 - MongoDB
 - Mapbox
 

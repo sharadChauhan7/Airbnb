@@ -8,11 +8,12 @@ main().then((res) => {
     console.log("Connection is up");
 })
     .catch((err) => {
+        
         console.log(err);
     })
 
 async function main() {
-    await mongoose.connect(MongoUrl);
+     mongoose.connect(MongoUrl);
 };
 
 const PropertySchema = mongoose.Schema({
